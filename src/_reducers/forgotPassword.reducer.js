@@ -5,9 +5,9 @@ export function forgotPassword(state = {}, action) {
     case userConstants.FORGOTPASSWORD_REQUEST:
       return { forgetingPassword: true };
     case userConstants.FORGOTPASSWORD_SUCCESS:
-      return {};
+      return { successforgetingPassword: true };
     case userConstants.FORGOTPASSWORD_FAILURE:
-      return {};
+      return { errorforgetPassword: true };
     default:
       return state;
   }

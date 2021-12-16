@@ -5,9 +5,9 @@ export function resetPassword(state = {}, action) {
     case userConstants.RESETPASSWORD_REQUEST:
       return { resetingPassword: true };
     case userConstants.RESETPASSWORD_SUCCESS:
-      return {};
+      return { resetedPassword: true };
     case userConstants.RESETPASSWORD_FAILURE:
-      return {};
+      return { errorresetPassword: true };
     default:
       return state;
   }

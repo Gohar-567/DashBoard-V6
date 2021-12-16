@@ -53,7 +53,7 @@ function forgotPassword(email) {
         dispatch(success(user));
         // console.log(user, 'forgotPasswordAction');
         alert(JSON.stringify(user));
-        history.push('/change-password');
+        // history.push('/change-password');
       },
       (error) => {
         dispatch(failure(error));
@@ -119,7 +119,7 @@ function register(user) {
     userService.register(user).then(
       () => {
         dispatch(success());
-        history.push('/log-in');
+        // history.push('/log-in');
         dispatch(alertActions.success('Registration successful'));
         alert(
           JSON.stringify(

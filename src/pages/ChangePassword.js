@@ -14,6 +14,13 @@ import './Auth.css';
 
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+// import CloseIcon from '@mui/icons-material/Close';
 
 const theme = createTheme();
 const validationSchema = yup.object({
@@ -32,6 +39,14 @@ const validationSchema = yup.object({
 });
 
 const ChangePassword = (props) => {
+  const [notifyError, setnotifyError] = useState(false);
+  const authentication = useSelector((state) => state.resetPassword);
+  const { errorresetPassword } = authentication;
+  useEffect(() => {
+    if (errorresetPassword) {
+      setnotifyError(true);
+    }
+  }, errorresetPassword);
   const formik = useFormik({
     initialValues: {
       token: '',
@@ -40,10 +55,10 @@ const ChangePassword = (props) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       props.resetPassword(
         (values.token =
-          '41914c115eb5cf078bba82c9c0c990b7c19df46eaf898ae2bb9740dce7f02243dec8ccad1b6f9e9f'),
+          '8229846e4ea430533a0c722649949be39d3cf0f3f36193ca9876207f27e719685a5e3f3f618f4f1a'),
         values.password,
         values.confirmPassword,
       );
@@ -73,8 +88,28 @@ const ChangePassword = (props) => {
             instruction
           </Typography>
           <form onSubmit={formik.handleSubmit}>
+            <Collapse in={notifyError}>
+              <Alert
+                severity="error"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setnotifyError(false);
+                    }}
+                  >
+                    {/* <CloseIcon fontSize="inherit" /> */}
+                  </IconButton>
+                }
+                sx={{ mb: 0, mt: 3 }}
+              >
+                Session has ben expired (Go back Try Again) !
+              </Alert>
+            </Collapse>
             <TextField
-              sx={{ mt: 1 }}
+              sx={{ mt: 3 }}
               fullWidth
               id="password"
               name="password"
@@ -109,6 +144,7 @@ const ChangePassword = (props) => {
               sx={{ mt: 3, mb: 2 }}
               size="large"
               // href="/log-in"
+              disabled={notifyError}
             >
               Change Password
             </Button>
