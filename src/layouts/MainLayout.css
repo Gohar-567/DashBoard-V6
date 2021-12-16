@@ -1,0 +1,11 @@
+:root[data-theme='theme-light']
+  a:not(.sidenav-link):not(.btn):not(.dropdown-item):not(.nav-link):not(.navbar-brand):not(.page-link):not(.carousel-control-prev):not(.carousel-control-next) {
+  color: inherit !important;
+}
+.css-1191obr-MuiPaper-root-MuiAppBar-root {
+  box-shadow: none !important;
+}
+.drawerHeader {
+  background-color: #1976d2;
+  color: white;
+}
