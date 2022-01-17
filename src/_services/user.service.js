@@ -1,5 +1,6 @@
 import { authHeader } from '../_helpers';
 import { API_ROOT } from '../_helpers';
+// import Cookies from 'universal-cookie';
 
 export const userService = {
   login,
@@ -17,6 +18,8 @@ function login(email, password) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    // credentials: 'include',
+    credentials: 'include',
     body: JSON.stringify({ email, password }),
   };
 
@@ -25,6 +28,10 @@ function login(email, password) {
     .then((user) => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem('user', JSON.stringify(user));
+      // GET COOKIE DATA
+      // const cookies = new Cookies();
+      // cookies.set('myCat', 'Bat', { path: '/' });
+      // console.log(cookies.get('myCat'));
       return user;
     });
 }
@@ -105,7 +112,7 @@ function update(user) {
     body: JSON.stringify(user),
   };
 
-  return fetch(`${API_ROOT}/users/${user.id}`, requestOptions).then(
+  return fetch(`${API_ROOT}/accounts/${user.id}`, requestOptions).then(
     handleResponse,
   );
 }

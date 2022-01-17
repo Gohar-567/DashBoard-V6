@@ -4,22 +4,19 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './_helpers';
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import './scss/dark.scss';
-import './scss/light.scss';
-
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { PrivateRoute } from './components/PrivateRoute';
 
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
+import RedirectLogin from './pages/RedirectLogin';
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePassword from './pages/ChangePassword';
 import Dashboard from './pages/Dashboard';
 import CustomerList from './pages/CustomerList';
 import EstimateList from './pages/EstimateList';
-import JobList from './pages/JobList';
+import Settings from './pages/Settings';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +25,7 @@ ReactDOM.render(
         <Routes>
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/redirect-login" element={<RedirectLogin />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/" element={<App />}>
@@ -56,10 +54,10 @@ ReactDOM.render(
               }
             />
             <Route
-              path="/jobs"
+              path="/settings"
               element={
                 <PrivateRoute>
-                  <JobList />
+                  <Settings />
                 </PrivateRoute>
               }
             />

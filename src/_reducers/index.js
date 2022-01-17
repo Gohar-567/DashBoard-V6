@@ -6,6 +6,7 @@ import { users } from './users.reducer';
 import { alert } from './alert.reducer';
 import { forgotPassword } from './forgotPassword.reducer';
 import { resetPassword } from './resetPassword.reducer';
+import { updateuser } from './update.reducer';
 
 const rootReducer = combineReducers({
   authentication,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   alert,
   forgotPassword,
   resetPassword,
+  updateuser,
 });
 
 export default rootReducer;

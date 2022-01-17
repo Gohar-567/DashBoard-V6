@@ -58,7 +58,7 @@ const ChangePassword = (props) => {
       // alert(JSON.stringify(values, null, 2));
       props.resetPassword(
         (values.token =
-          '8229846e4ea430533a0c722649949be39d3cf0f3f36193ca9876207f27e719685a5e3f3f618f4f1a'),
+          'a2b72311add7d40c9443aa4dc0490323c73a934cae06161ad5d6c2152b6b8cab65493820a306a3a8'),
         values.password,
         values.confirmPassword,
       );

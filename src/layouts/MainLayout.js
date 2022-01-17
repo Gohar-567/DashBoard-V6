@@ -17,7 +17,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import './MainLayout.css';
 
 const sideBarLinks = [
@@ -37,9 +37,9 @@ const sideBarLinks = [
     icon: BarChartIcon,
   },
   {
-    label: 'Jobs',
-    path: '/jobs',
-    icon: LayersIcon,
+    label: 'Settings',
+    path: '/settings',
+    icon: ManageAccountsIcon,
   },
 ];
 
@@ -118,6 +118,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -152,6 +154,12 @@ export default function MiniDrawer() {
           >
             DASHBOARD
           </Typography>
+          <Typography sx={{ mx: 6 }}>
+            User Name :
+            <strong>
+              {user.firstName} {user.lastName}
+            </strong>
+          </Typography>
           <a href="/log-in">
             Log Out
             <IconButton color="inherit">
@@ -175,17 +183,19 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <MenuIcon /> : <MenuOpenIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        <Divider sx={{ mb: 1 }} />
         <List sx={{ mx: 2 }}>
           {sideBarLinks.map((link) => (
             <ActiveLink key={0} to={link.path}>
               <link.icon
-                // className="mx-2"
-                style={{ minWidth: 25, minHeight: 25 }}
+                style={{ minWidth: 40, minHeight: 40, display: 'inline-block' }}
+                sx={{ mb: -2 }}
               />
-              <Typography sx={{ mx: 5 }} className="sidenav-non-slim">
+              <Typography style={{ display: 'inline-block' }} sx={{ mx: 4 }}>
                 {link.label}
               </Typography>
+              <br />
+              <br />
             </ActiveLink>
           ))}
         </List>
@@ -221,133 +231,3 @@ const ActiveLink = ({ to, children }) => {
     </a>
   );
 };
-
-// import { useState, useCallback } from 'react';
-// import { useLocation, useNavigate, Outlet } from 'react-router-dom';
-// import {
-//   MDBSideNav,
-//   MDBSideNavMenu,
-//   MDBSideNavItem,
-//   //MDBSideNavLink,
-//   MDBNavbar,
-//   MDBBtn,
-//   MDBScrollbar,
-//   MDBContainer,
-//   //MDBSideNavCollapse,
-// } from 'mdb-react-ui-kit';
-
-// import { ReactComponent as SvgMenuClose } from '../assets/menu-close.svg';
-// import { ReactComponent as SvgMenuOpen } from '../assets/menu-open.svg';
-// import { ReactComponent as SvgDashboard } from '../assets/dashboard.svg';
-// import { ReactComponent as SvgPeople } from '../assets/people.svg';
-// import { ReactComponent as SvgBriefcase } from '../assets/briefcase.svg';
-// import { ReactComponent as SvgCoin } from '../assets/coin.svg';
-
-// const sideBarLinks = [
-//   {
-//     label: 'Dashboard',
-//     path: '/',
-//     icon: SvgDashboard,
-//   },
-//   {
-//     label: 'Customers',
-//     path: '/customers',
-//     icon: SvgPeople,
-//   },
-//   {
-//     label: 'Estimates',
-//     path: '/estimates',
-//     icon: SvgCoin,
-//   },
-//   {
-//     label: 'Jobs',
-//     path: '/jobs',
-//     icon: SvgBriefcase,
-//   },
-// ];
-
-// const MainLayout = () => {
-//   const [slimOpen, setSlimOpen] = useState(true);
-//   const [slimMode, setSlimMode] = useState(false);
-//   return (
-//     <>
-//       <MDBNavbar
-//         fixed="top"
-//         style={{
-//           height: 66,
-//         }}
-//       >
-//         <div className="text-center">
-//           <MDBBtn
-//             rippleCentered
-//             tag="a"
-//             color="none"
-//             className="p-2 d-flex align-items-center justify-content-center"
-//             style={{ minWidth: 42, minHeight: 50 }}
-//             onClick={() => setSlimMode(!slimMode)}
-//           >
-//             {slimMode ? <SvgMenuClose /> : <SvgMenuOpen />}
-//           </MDBBtn>
-//         </div>
-//       </MDBNavbar>
-//       <div
-//         style={{ marginTop: 67, height: 'calc(100vh - 67px)' }}
-//         className="d-flex position-relative"
-//       >
-//         <MDBSideNav
-//           backdrop={false}
-//           mode="side"
-//           isOpen={slimOpen}
-//           relative
-//           slim={slimMode}
-//           getOpenState={(e) => setSlimOpen(e)}
-//         >
-//           <MDBScrollbar sidenav tag="ul" suppressScrollX>
-//             <MDBSideNavMenu>
-//               {sideBarLinks.map((link) => (
-//                 <MDBSideNavItem key={link.label}>
-//                   <ActiveLink to={link.path}>
-//                     <link.icon style={{ minWidth: 25, minHeight: 25 }} />
-//                     <span className="sidenav-non-slim">{link.label}</span>
-//                   </ActiveLink>
-//                 </MDBSideNavItem>
-//               ))}
-//             </MDBSideNavMenu>
-//           </MDBScrollbar>
-//         </MDBSideNav>
-//         <MDBContainer fluid className="main-content flex-grow">
-//           <Outlet />
-//         </MDBContainer>
-//       </div>
-//     </>
-//   );
-// };
-
-// const ActiveLink = ({ to, children }) => {
-//   const active = useLocation().pathname == to;
-//   const navigate = useNavigate();
-
-//   const route = useCallback(
-//     (e) => {
-//       e.preventDefault();
-//       navigate(to);
-//     },
-//     [to, navigate],
-//   );
-
-//   return (
-//     <MDBBtn
-//       href={to}
-//       color="none"
-//       className={`py-2 m-1 p-1 w-100 d-flex align-items-center d-block ${
-//         active ? 'active' : ''
-//       }`}
-//       style={{ height: 40 }}
-//       onClick={route}
-//     >
-//       {children}
-//     </MDBBtn>
-//   );
-// };
-
-// export default MainLayout;
